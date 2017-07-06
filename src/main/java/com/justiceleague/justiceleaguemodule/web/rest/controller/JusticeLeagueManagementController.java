@@ -1,29 +1,52 @@
 package com.justiceleague.justiceleaguemodule.web.rest.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.justiceleague.justiceleaguemodule.dao.JusticeLeagueRepository;
+import com.justiceleague.justiceleaguemodule.service.JusticeLeagueMemberService;
 import com.justiceleague.justiceleaguemodule.web.dto.JusticeLeagueMemberDTO;
 import com.justiceleague.justiceleaguemodule.web.dto.ResponseDTO;
-import com.justiceleague.justiceleaguemodule.web.transformer.DTOToDomainTransformer;
 
+/**
+ * This class exposes the REST API for the system.
+ * 
+ * @author dinuka
+ *
+ */
 @RestController
 @RequestMapping("/justiceleague")
 public class JusticeLeagueManagementController {
 
 	@Autowired
-	private JusticeLeagueRepository justiceLeagueRepo;
+	private JusticeLeagueMemberService memberService;
 
+	/**
+	 * This method will be used to add justice league members to the system.
+	 * 
+	 * @param justiceLeagueMember
+	 *            the justice league member to add.
+	 * @return an instance of {@link ResponseDTO} which will notify whether
+	 *         adding the member was successful.
+	 */
 	@ResponseBody
-	@RequestMapping(method = RequestMethod.POST, path = "addMember")
+	@ResponseStatus(value = HttpStatus.OK)
+	@RequestMapping(method = RequestMethod.POST, path = "/addMember", produces = {
+			MediaType.APPLICATION_JSON_VALUE }, consumes = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseDTO addJusticeLeagueMember(@RequestBody JusticeLeagueMemberDTO justiceLeagueMember) {
-
-		justiceLeagueRepo.save(DTOToDomainTransformer.transform(justiceLeagueMember));
-		return new ResponseDTO(ResponseDTO.Status.SUCCESS, null);
+		ResponseDTO responseDTO = new ResponseDTO(ResponseDTO.Status.SUCCESS, null);
+		try {
+			memberService.addMember(justiceLeagueMember);
+		} catch (Exception e) {
+			responseDTO.setStatus(ResponseDTO.Status.FAIL);
+			responseDTO.setMessage(e.getMessage());
+		}
+		return responseDTO;
 	}
 }

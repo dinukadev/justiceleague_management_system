@@ -2,14 +2,23 @@ package com.justiceleague.justiceleaguemodule.domain;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+/**
+ * This class holds the details that will be stored about the justice league
+ * members on MongoDB.
+ * 
+ * @author dinuka
+ *
+ */
 @Document(collection = "justiceLeagueMembers")
 public class JusticeLeagueMemberDetail {
 
 	@Id
 	private ObjectId id;
 
+	@Indexed
 	private String name;
 
 	private String superPower;
