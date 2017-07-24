@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.justiceleague.justiceleaguemodule.constants.MessageConstants;
 import com.justiceleague.justiceleaguemodule.service.JusticeLeagueMemberService;
 import com.justiceleague.justiceleaguemodule.web.dto.JusticeLeagueMemberDTO;
 import com.justiceleague.justiceleaguemodule.web.dto.ResponseDTO;
@@ -36,11 +37,12 @@ public class JusticeLeagueManagementController {
 	 *         adding the member was successful.
 	 */
 	@ResponseBody
-	@ResponseStatus(value = HttpStatus.OK)
+	@ResponseStatus(value = HttpStatus.CREATED)
 	@RequestMapping(method = RequestMethod.POST, path = "/addMember", produces = {
 			MediaType.APPLICATION_JSON_VALUE }, consumes = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseDTO addJusticeLeagueMember(@RequestBody JusticeLeagueMemberDTO justiceLeagueMember) {
-		ResponseDTO responseDTO = new ResponseDTO(ResponseDTO.Status.SUCCESS, "Member successfully added.");
+		ResponseDTO responseDTO = new ResponseDTO(ResponseDTO.Status.SUCCESS,
+				MessageConstants.MEMBER_ADDED_SUCCESSFULLY);
 		try {
 			memberService.addMember(justiceLeagueMember);
 		} catch (Exception e) {

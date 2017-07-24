@@ -11,6 +11,12 @@ import com.mongodb.Mongo;
 import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
 
+/**
+ * This class constructs the mongo client required by the justice league module.
+ * 
+ * @author dinuka
+ *
+ */
 @Configuration
 public class MongoConfig extends AbstractMongoConfiguration {
 

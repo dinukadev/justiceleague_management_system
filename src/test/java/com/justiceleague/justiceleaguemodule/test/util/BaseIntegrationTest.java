@@ -3,6 +3,7 @@ package com.justiceleague.justiceleaguemodule.test.util;
 import java.io.IOException;
 import java.net.UnknownHostException;
 
+import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -10,10 +11,12 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.justiceleague.justiceleaguemodule.domain.JusticeLeagueMemberDetail;
 
 import de.flapdoodle.embed.mongo.MongodExecutable;
 import de.flapdoodle.embed.mongo.MongodProcess;
@@ -35,9 +38,17 @@ public abstract class BaseIntegrationTest {
 
 	private static MongodExecutable mongodExecutable;
 
+	@Autowired
+	protected MongoTemplate mongoTemplate;
+
 	@Before
 	public void setUp() {
 		mapper = new ObjectMapper();
+	}
+
+	@After
+	public void after() {
+		mongoTemplate.dropCollection(JusticeLeagueMemberDetail.class);
 	}
 
 	@BeforeClass
