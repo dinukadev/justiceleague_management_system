@@ -40,7 +40,7 @@ public class JusticeLeagueManagementController {
 	@RequestMapping(method = RequestMethod.POST, path = "/addMember", produces = {
 			MediaType.APPLICATION_JSON_VALUE }, consumes = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseDTO addJusticeLeagueMember(@RequestBody JusticeLeagueMemberDTO justiceLeagueMember) {
-		ResponseDTO responseDTO = new ResponseDTO(ResponseDTO.Status.SUCCESS, null);
+		ResponseDTO responseDTO = new ResponseDTO(ResponseDTO.Status.SUCCESS, "Member successfully added.");
 		try {
 			memberService.addMember(justiceLeagueMember);
 		} catch (Exception e) {

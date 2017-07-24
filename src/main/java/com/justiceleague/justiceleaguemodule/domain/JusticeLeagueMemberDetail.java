@@ -25,12 +25,18 @@ public class JusticeLeagueMemberDetail {
 
 	private String location;
 
-	public ObjectId getId() {
-		return id;
+	public JusticeLeagueMemberDetail(String name, String superPower, String location) {
+		this.name = name;
+		this.superPower = superPower;
+		this.location = location;
 	}
 
-	public void setId(ObjectId id) {
-		this.id = id;
+	public String getId() {
+		return id.toString();
+	}
+
+	public void setId(String id) {
+		this.id = new ObjectId(id);
 	}
 
 	public String getName() {

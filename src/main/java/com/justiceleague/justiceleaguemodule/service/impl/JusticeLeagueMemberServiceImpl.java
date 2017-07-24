@@ -27,7 +27,7 @@ public class JusticeLeagueMemberServiceImpl implements JusticeLeagueMemberServic
 	 * {@inheritDoc}
 	 */
 	public void addMember(JusticeLeagueMemberDTO justiceLeagueMember) {
-		JusticeLeagueMemberDetail dbMember = justiceLeagueRepo.findByName(justiceLeagueMember.getName());
+		JusticeLeagueMemberDetail dbMember = justiceLeagueRepo.findBySuperHeroName(justiceLeagueMember.getName());
 
 		if (dbMember != null) {
 			throw new JusticeLeagueManagementException("The member already exists.");

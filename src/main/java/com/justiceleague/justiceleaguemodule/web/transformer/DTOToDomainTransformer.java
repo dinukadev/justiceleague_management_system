@@ -24,10 +24,6 @@ public class DTOToDomainTransformer {
 	 *         of the member.
 	 */
 	public static JusticeLeagueMemberDetail transform(final JusticeLeagueMemberDTO memberDTO) {
-		JusticeLeagueMemberDetail memberDomain = new JusticeLeagueMemberDetail();
-		memberDomain.setName(memberDTO.getName());
-		memberDomain.setSuperPower(memberDTO.getSuperPower());
-		memberDomain.setLocation(memberDTO.getLocation());
-		return memberDomain;
+		return new JusticeLeagueMemberDetail(memberDTO.getName(), memberDTO.getSuperPower(), memberDTO.getLocation());
 	}
 }
