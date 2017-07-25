@@ -1,5 +1,7 @@
 package com.justiceleague.justiceleaguemodule.web.rest.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -40,7 +42,7 @@ public class JusticeLeagueManagementController {
 	@ResponseStatus(value = HttpStatus.CREATED)
 	@RequestMapping(method = RequestMethod.POST, path = "/addMember", produces = {
 			MediaType.APPLICATION_JSON_VALUE }, consumes = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseDTO addJusticeLeagueMember(@RequestBody JusticeLeagueMemberDTO justiceLeagueMember) {
+	public ResponseDTO addJusticeLeagueMember(@Valid @RequestBody JusticeLeagueMemberDTO justiceLeagueMember) {
 		ResponseDTO responseDTO = new ResponseDTO(ResponseDTO.Status.SUCCESS,
 				MessageConstants.MEMBER_ADDED_SUCCESSFULLY);
 		try {

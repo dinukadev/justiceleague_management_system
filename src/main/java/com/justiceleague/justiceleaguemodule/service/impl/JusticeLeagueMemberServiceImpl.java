@@ -3,6 +3,7 @@ package com.justiceleague.justiceleaguemodule.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.justiceleague.justiceleaguemodule.constants.MessageConstants.ErrorMessages;
 import com.justiceleague.justiceleaguemodule.dao.JusticeLeagueRepository;
 import com.justiceleague.justiceleaguemodule.domain.JusticeLeagueMemberDetail;
 import com.justiceleague.justiceleaguemodule.exception.JusticeLeagueManagementException;
@@ -30,7 +31,7 @@ public class JusticeLeagueMemberServiceImpl implements JusticeLeagueMemberServic
 		JusticeLeagueMemberDetail dbMember = justiceLeagueRepo.findBySuperHeroName(justiceLeagueMember.getName());
 
 		if (dbMember != null) {
-			throw new JusticeLeagueManagementException("The member already exists.");
+			throw new JusticeLeagueManagementException(ErrorMessages.MEMBER_ALREDY_EXISTS);
 		}
 		JusticeLeagueMemberDetail memberToPersist = DTOToDomainTransformer.transform(justiceLeagueMember);
 		justiceLeagueRepo.insert(memberToPersist);

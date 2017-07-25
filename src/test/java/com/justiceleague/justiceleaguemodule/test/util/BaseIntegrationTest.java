@@ -19,13 +19,19 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.justiceleague.justiceleaguemodule.domain.JusticeLeagueMemberDetail;
 
 import de.flapdoodle.embed.mongo.MongodExecutable;
-import de.flapdoodle.embed.mongo.MongodProcess;
 import de.flapdoodle.embed.mongo.MongodStarter;
 import de.flapdoodle.embed.mongo.config.IMongodConfig;
 import de.flapdoodle.embed.mongo.config.MongodConfigBuilder;
 import de.flapdoodle.embed.mongo.config.Net;
 import de.flapdoodle.embed.mongo.distribution.Version;
 
+/**
+ * This class will have functionality required when running integration tests so
+ * that invidivual classes do not need to implement the same functionality.
+ * 
+ * @author dinuka
+ *
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -51,6 +57,13 @@ public abstract class BaseIntegrationTest {
 		mongoTemplate.dropCollection(JusticeLeagueMemberDetail.class);
 	}
 
+	/**
+	 * Here we are setting up an embedded mongodb instance to run with our
+	 * integration tests.
+	 * 
+	 * @throws UnknownHostException
+	 * @throws IOException
+	 */
 	@BeforeClass
 	public static void beforeClass() throws UnknownHostException, IOException {
 
@@ -62,7 +75,7 @@ public abstract class BaseIntegrationTest {
 		mongodExecutable = starter.prepare(mongoConfig);
 
 		try {
-			MongodProcess mongod = mongodExecutable.start();
+			mongodExecutable.start();
 		} catch (Exception e) {
 			closeMongoExecutable();
 		}
