@@ -1,0 +1,11 @@
+server:
+  port: 8080
+  name: jlmanagement
+  dbName: justiceLeague
+
+
+
+spring:
+  data:
+    mongodb:
+      uri: 35.244.101.18:27017

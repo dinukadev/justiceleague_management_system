@@ -1,0 +1,35 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: jlmanagement
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: jlmanagement
+    spec:
+      containers:
+      - name: jlmanagement
+        image: gcr.io/octo-bof-dec-03-2018/jlms:latest
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 80
+        env:
+        - name: ENVIRONMENT
+          value: "prod"
+---
+kind: Service
+apiVersion: v1
+metadata:
+  labels:
+    app: jlmanagement
+  name: jlmanagement
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 8080
+  selector:
+    app: jlmanagement
