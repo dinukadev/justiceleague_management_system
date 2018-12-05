@@ -1,35 +1,43 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: jlmanagement
+  name: ms-jlms
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: jlmanagement
+        app: ms-jlms
     spec:
       containers:
-      - name: jlmanagement
+      - name: ms-jlms
         image: gcr.io/octo-bof-dec-03-2018/jlms:latest
         imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: "50m"
         ports:
         - name: http
-          containerPort: 80
+          containerPort: 8080
         env:
         - name: ENVIRONMENT
           value: "prod"
+        - name: XMS
+          value: "-Xms512m"
+        - name: XMX
+          value: "-Xmx512m"
 ---
 kind: Service
 apiVersion: v1
 metadata:
   labels:
-    app: jlmanagement
-  name: jlmanagement
+    app: ms-jlms
+  name: ms-jlms
 spec:
   type: ClusterIP
   ports:
-  - port: 80
+  - name: "application"
+    port: 80
     targetPort: 8080
   selector:
-    app: jlmanagement
+    app: ms-jlms
