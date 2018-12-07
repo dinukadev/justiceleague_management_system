@@ -36,7 +36,7 @@ public class JusticeLeagueManagementControllerTest extends BaseIntegrationTest {
 		JusticeLeagueMemberDTO flash = new JusticeLeagueMemberDTO("Barry Allen", "super speed", "Central City");
 		String jsonContent = mapper.writeValueAsString(flash);
 		String response = mockMvc
-				.perform(MockMvcRequestBuilders.post("/justiceleague/addMember").accept(MediaType.APPLICATION_JSON)
+				.perform(MockMvcRequestBuilders.post("/justiceleague").accept(MediaType.APPLICATION_JSON)
 						.contentType(MediaType.APPLICATION_JSON).content(jsonContent))
 				.andExpect(MockMvcResultMatchers.status().isCreated()).andReturn().getResponse().getContentAsString();
 
@@ -62,7 +62,7 @@ public class JusticeLeagueManagementControllerTest extends BaseIntegrationTest {
 		JusticeLeagueMemberDTO flash = new JusticeLeagueMemberDTO("Barry Allen", "super speed", "Central City");
 		String jsonContent = mapper.writeValueAsString(flash);
 		String response = mockMvc
-				.perform(MockMvcRequestBuilders.post("/justiceleague/addMember").accept(MediaType.APPLICATION_JSON)
+				.perform(MockMvcRequestBuilders.post("/justiceleague").accept(MediaType.APPLICATION_JSON)
 						.contentType(MediaType.APPLICATION_JSON).content(jsonContent))
 				.andExpect(MockMvcResultMatchers.status().isCreated()).andReturn().getResponse().getContentAsString();
 
@@ -84,7 +84,7 @@ public class JusticeLeagueManagementControllerTest extends BaseIntegrationTest {
 		// validation error handling kicks in.
 		JusticeLeagueMemberDTO flash = new JusticeLeagueMemberDTO(null, "super speed", "Central City");
 		String jsonContent = mapper.writeValueAsString(flash);
-		mockMvc.perform(MockMvcRequestBuilders.post("/justiceleague/addMember").accept(MediaType.APPLICATION_JSON)
+		mockMvc.perform(MockMvcRequestBuilders.post("/justiceleague").accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.APPLICATION_JSON).content(jsonContent))
 				.andExpect(MockMvcResultMatchers.status().is4xxClientError());
 
